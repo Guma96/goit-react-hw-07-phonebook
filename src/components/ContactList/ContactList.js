@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styles from "./ContactList.module.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './ContactList.module.css';
 import { useSelector } from 'react-redux';
-import { getFilter } from 'redux/selectors';
+import { selectFilter } from 'redux/selectors';
 import { Contact } from 'components/Contact/Contact';
 import { useGetContactsQuery } from 'redux/contactsSlice';
 
 const ContactList = ({ contact }) => {
-    const { data, error, isLoading } = useGetContactsQuery();
-  const { filter } = useSelector(getFilter);
+  const { data, error, isLoading } = useGetContactsQuery();
+  const { filter } = useSelector(selectFilter);
 
   if (!data) {
     return null;
@@ -20,15 +20,16 @@ const ContactList = ({ contact }) => {
   return (
     <div>
       {!error && isLoading && <div>Loading</div>}
-    <ul className={styles.List}>
-    {visibleContacts.map((contact) => (
-      <li className = {styles.List_item}key={contact.id}>
-    <Contact contact={contact} />
-      </li>
-    ))}
+      <ul className={styles.List}>
+        {visibleContacts.map(contact => (
+          <li className={styles.List_item} key={contact.id}>
+            <Contact contact={contact} />
+          </li>
+        ))}
       </ul>
-      </div>
-)};
+    </div>
+  );
+};
 
 ContactList.propTypes = {
   contact: PropTypes.object,
