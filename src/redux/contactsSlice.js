@@ -1,36 +1,50 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from './operations';
 
-export const contactsApi = createApi({
-  reducerPath: 'contacts',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://64ab9c100c6d844abedf8e3b.mockapi.io',
-  }),
-  tagTypes: ['Material'],
-  endpoints: builder => ({
-    getContacts: builder.query({
-      query: () => `/contacts`,
-      providesTags: ['Material'],
-    }),
-    addContact: builder.mutation({
-      query: values => ({
-        url: '/contacts',
-        method: 'POST',
-        body: values,
-      }),
-      invalidatesTags: ['Material'],
-    }),
-    deleteContact: builder.mutation({
-      query: id => ({
-        url: `/contacts/${id}`,
-        method: 'DELETE',
-      }),
-      invalidatesTags: ['Material'],
-    }),
-  }),
+const contactsSlice = createSlice({
+  name: 'contacts',
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
+  extraReducers: {
+    [fetchContacts.pending](state) {
+      state.isLoading = true;
+    },
+    [fetchContacts.fulfilled](state, action) {
+      state.items = action.payload;
+      state.isLoading = false;
+    },
+    [fetchContacts.rejected](state, action) {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+
+    [addContact.pending](state) {
+      state.isLoading = true;
+    },
+    [addContact.fulfilled](state, action) {
+      state.items.push(action.payload);
+      state.isLoading = false;
+    },
+    [addContact.rejected](state, action) {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+
+    [deleteContact.pending](state) {
+      state.isLoading = true;
+    },
+    [deleteContact.fulfilled](state, action) {
+      state.items = state.items.filter(item => item.id !== action.payload.id);
+      state.isLoading = false;
+    },
+    [deleteContact.rejected](state, action) {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+  },
 });
 
-export const {
-  useGetContactsQuery,
-  useAddContactMutation,
-  useDeleteContactMutation,
-} = contactsApi;
+export const contactsReducer = contactsSlice.reducer;
