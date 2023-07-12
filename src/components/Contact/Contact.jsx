@@ -1,9 +1,9 @@
-import { contactsReducer } from 'redux/contactsSlice';
+import { deleteContact } from 'redux/operations';
 import PropTypes from 'prop-types';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const Contact = ({ contact }) => {
-  const [deleteContact] = contactsReducer();
+  const [deleteContact] = deleteContact();
 
   const handleDelete = async () => {
     try {

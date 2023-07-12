@@ -1,15 +1,12 @@
 import PropTypes from 'prop-types';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import styles from "./ContactForm.module.css";
+import styles from './ContactForm.module.css';
 
-import {
-  useAddContactMutation,
-  useGetContactsQuery,
-} from 'redux/contactsSlice';
+import { addContact, fetchContacts } from 'redux/operations';
 
 const ContactForm = () => {
-  const [addContact] = useAddContactMutation();
-  const { data } = useGetContactsQuery();
+  const [addContact] = addContact();
+  const { data } = fetchContacts();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -30,30 +27,22 @@ const ContactForm = () => {
     }
   };
 
-    return (
-      <form className={styles.Editor} onSubmit={handleSubmit} autoComplete="off">
-        <label className={styles.Editor_label}>
-          Name
-          <input
-            className={styles.Editor_input}
-            type="text"
-            name="name"
-          />
-        </label>
-        <label className={styles.Editor_label}>
-          Number
-          <input
-            className={styles.Editor_input}
-            type="text"
-            name="number"
-          />
-        </label>
-        <button className={styles.Editor_button} type="submit">
-          Add contact
-        </button>
-      </form>
-    );
-  }
+  return (
+    <form className={styles.Editor} onSubmit={handleSubmit} autoComplete="off">
+      <label className={styles.Editor_label}>
+        Name
+        <input className={styles.Editor_input} type="text" name="name" />
+      </label>
+      <label className={styles.Editor_label}>
+        Number
+        <input className={styles.Editor_input} type="text" name="number" />
+      </label>
+      <button className={styles.Editor_button} type="submit">
+        Add contact
+      </button>
+    </form>
+  );
+};
 
 export default ContactForm;
 
