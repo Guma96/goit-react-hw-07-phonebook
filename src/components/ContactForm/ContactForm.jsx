@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import styles from './ContactForm.module.css';
 
@@ -45,7 +44,3 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
-
-ContactForm.propTypes = {
-  contacts: PropTypes.object,
-};
