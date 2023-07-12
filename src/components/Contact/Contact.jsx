@@ -1,9 +1,9 @@
-import { useDeleteContactMutation } from 'redux/contactsSlice';
+import { contactsReducer } from 'redux/contactsSlice';
 import PropTypes from 'prop-types';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const Contact = ({ contact }) => {
-  const [deleteContact] = useDeleteContactMutation();
+  const [deleteContact] = contactsReducer();
 
   const handleDelete = async () => {
     try {
@@ -19,9 +19,7 @@ export const Contact = ({ contact }) => {
       <span>
         {contact.name}: <span>{contact.number}</span>
       </span>
-      <button onClick={handleDelete}>
-        delete
-      </button>
+      <button onClick={handleDelete}>delete</button>
     </div>
   );
 };
