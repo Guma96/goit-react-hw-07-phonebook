@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import styles from './ContactForm.module.css';
 
-import { addContact, fetchContacts } from 'redux/operations';
+import { addContactMutation, fetchContacts } from 'redux/operations';
 
 const ContactForm = () => {
-  const [addContact] = addContact();
+  const [addContact] = addContactMutation();
   const { data } = fetchContacts();
 
   const handleSubmit = async e => {

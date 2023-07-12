@@ -4,10 +4,10 @@ import styles from './ContactList.module.css';
 import { useSelector } from 'react-redux';
 import { selectFilter } from 'redux/selectors';
 import { Contact } from 'components/Contact/Contact';
-import { contactsReducer } from 'redux/contactsSlice';
+import { fetchContacts } from 'redux/operations';
 
 const ContactList = ({ contact }) => {
-  const { data, error, isLoading } = contactsReducer();
+  const { data, error, isLoading } = fetchContacts();
   const { filter } = useSelector(selectFilter);
 
   if (!data) {
