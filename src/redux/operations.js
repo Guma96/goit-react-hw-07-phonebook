@@ -38,3 +38,4 @@ export const deleteContact = createAsyncThunk(
     }
   }
 );
+export const contactsApi = 'https://64ab9c100c6d844abedf8e3b.mockapi.io';
