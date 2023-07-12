@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './operations';
+import {
+  fetchContacts,
+  addContactMutation,
+  deleteContactMutation,
+} from './operations';
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -21,26 +25,26 @@ const contactsSlice = createSlice({
       state.isLoading = false;
     },
 
-    [addContact.pending](state) {
+    [addContactMutation.pending](state) {
       state.isLoading = true;
     },
-    [addContact.fulfilled](state, action) {
+    [addContactMutation.fulfilled](state, action) {
       state.items.push(action.payload);
       state.isLoading = false;
     },
-    [addContact.rejected](state, action) {
+    [addContactMutation.rejected](state, action) {
       state.error = action.payload;
       state.isLoading = false;
     },
 
-    [deleteContact.pending](state) {
+    [deleteContactMutation.pending](state) {
       state.isLoading = true;
     },
-    [deleteContact.fulfilled](state, action) {
+    [deleteContactMutation.fulfilled](state, action) {
       state.items = state.items.filter(item => item.id !== action.payload.id);
       state.isLoading = false;
     },
-    [deleteContact.rejected](state, action) {
+    [deleteContactMutation.rejected](state, action) {
       state.error = action.payload;
       state.isLoading = false;
     },
