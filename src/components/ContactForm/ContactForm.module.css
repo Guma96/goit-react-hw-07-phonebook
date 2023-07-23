@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
-  border-radius: 11px;
+  width: 500px;
+  border-radius: 10px;
   background-color: #d3d3d3;
   margin: 30px 5px;
 }
@@ -11,7 +11,7 @@
 .contactAddLabel {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 400px;
   margin: 10px auto;
   font-size: 22px;
   font-weight: 600;
@@ -30,15 +30,15 @@
 }
 
 .contactAddInput:focus {
-  border: 1px solid #0074f9;
+  border: 1px solid #81aee2;
 }
 
 .contactAddBtn {
   margin: 20px auto;
   width: 270px;
-  background-color: #0074f9;
+  background-color: #81aee2;
   border: none;
-  color: rgb(250, 250, 250);
+  color: white;
   height: 40px;
   border-radius: 10px;
   line-height: normal;
@@ -52,6 +52,6 @@
 .contactAddBtn:hover {
   background-color: #556b2f;
   cursor: pointer;
-  color: #0074f9;
+  color: #81aee2;
   transition: 250ms;
 }
