@@ -10,6 +10,7 @@ const ContactForm = () => {
   useEffect(() => {
     fetchContacts()
       .then(response => {
+        console.log(response.data);
         setContacts(response.data);
       })
       .catch(error => {});
