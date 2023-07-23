@@ -1,11 +1,19 @@
+import { useEffect } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import styles from './ContactForm.module.css';
-
 import { addContactMutation, fetchContacts } from 'redux/operations';
 
 const ContactForm = () => {
   const [addContact] = addContactMutation();
-  const { data } = fetchContacts();
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    fetchContacts()
+      .then(response => {
+        setContacts(response.data);
+      })
+      .catch(error => {});
+  }, []);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -14,12 +22,14 @@ const ContactForm = () => {
     const number = form.elements.number.value;
     const contactData = { name, number };
     form.reset();
-    if (data.find(contact => contact.name === name)) {
+    if (contacts.find(contact => contact.name === name)) {
       Notify.warning(`${name} is already in contacts`);
       return false;
     }
     try {
       await addContact(contactData);
+
+      setContacts([...contacts, contactData]);
       Notify.success('Contact was added to your phonebook');
     } catch (error) {
       Notify.failure('Something wrong. Please, try again');
